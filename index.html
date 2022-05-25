@@ -48,12 +48,15 @@ class Camera {
     }
 
     const $size = { width: 640, height: 480 };
+    const $m_size = { width: 800, height: 400 };
     const videoConfig = {
       'audio': false,
       'video': {
         facingMode: 'environment',
-        width: $size.width,
-        height: $size.height,
+        // Only setting the video to a specified size for large screen, on
+        // mobile devices accept the default size.
+        width: isMobile() ? $m_size.width : $size.width,
+        height: isMobile() ? $m_size.height : $size.height,
       }
     };
 
@@ -122,6 +125,7 @@ class Camera {
       const height = y2 - y1;
       const klass = coco_names[classes_data[i]];
       const score = scores_data[i].toFixed(2);
+      //console.log(score);
 
       // Draw the bounding box.
       this.ctx.strokeStyle = "#00FFFF";
@@ -142,9 +146,28 @@ class Camera {
       const klass = coco_names[classes_data[i]];
       const score = scores_data[i].toFixed(2);
 
+      var audio_pepsi = new Audio('audio_pepsi.mp3');
+      var audio_fanta = new Audio('audio_fanta.mp3');
+      var audio_chilsung = new Audio('audio_chilsung.mp3');
+
       // Draw the text last to ensure it's on top.
-      this.ctx.fillStyle = "#000000";
-      this.ctx.fillText(klass + ":" + score, x1, y1);
+
+      if (score > 0.9) {
+        this.ctx.fillStyle = "#000000";
+        this.ctx.fillText(klass + ":" + score, x1, y1);
+
+        if (klass == "pepsi") {
+          audio_pepsi.play();
+        }
+
+        if (klass == "fanta") {
+          audio_fanta.play();
+        }
+
+        if (klass == "chilsung") {
+          audio_chilsung.play();
+        }
+      }
 
     }
 
