@@ -18,6 +18,7 @@
 <script>
 
 const coco_names = ['coca', 'pepsi', 'sprite', 'chilsung', 'milkis', 'welchs', 'pocari', 'fanta']
+var cnt = [0, 0, 0, 0, 0, 0, 0, 0]
 
 function isiOS() {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -106,6 +107,7 @@ class Camera {
     this.ctx.font = font;
     this.ctx.textBaseline = "top";
 
+
     const [boxes, scores, classes, valid_detections] = res;
     const boxes_data = boxes.dataSync();
     const scores_data = scores.dataSync();
@@ -123,9 +125,15 @@ class Camera {
       const klass = coco_names[classes_data[i]];
       const score = scores_data[i].toFixed(2);
 
-      var audio_pepsi = new Audio('audio_pepsi.mp3');
-      var audio_fanta = new Audio('audio_fanta.mp3');
-      var audio_chilsung = new Audio('audio_chilsung.mp3');
+      var playaudio = [];
+      playaudio[0] = new Audio('audio_coca.mp3');
+      playaudio[1] = new Audio('audio_pepsi.mp3');
+      playaudio[2] = new Audio('audio_sprite.mp3');
+      playaudio[3] = new Audio('audio_chilsung.mp3');
+      playaudio[4] = new Audio('audio_milkis.mp3');
+      playaudio[5] = new Audio('audio_welchs.mp3');
+      playaudio[6] = new Audio('audio_pocari.mp3');
+      playaudio[7] = new Audio('audio_fanta.mp3');
 
       // Draw the text last to ensure it's on top.
 
@@ -154,19 +162,18 @@ class Camera {
           const textHeight = parseInt(font, 10); // base 10
           this.ctx.fillRect(x1, y1, textWidth + 4, textHeight + 4);
 
-          /*
-          if (klass == "pepsi") {
-          cnt[1] += 1;
-          console.log(cnt[1]);
-          }
+          for (var i=0; i<9; i++) {
+            if (klass == coco_names[i]) {
+              cnt[i] += 1;
+            }
 
-          if (cnt[1] > 10) {
-            audio_pepsi.play();
-            cnt[1] = 0;
+            if (cnt[i] == 10) {
+              playaudio[i].play();
+              cnt[i] = -20;
+            }
           }
-          */
-
         }
+
         this.ctx.fillStyle = "#000000";
         this.ctx.fillText(klass + ":" + score, x1, y1);
 
