@@ -115,30 +115,7 @@ class Camera {
     tf.dispose(res);
 
     var i;
-    for (i = 0; i < valid_detections_data; ++i) {
-      let [x1, y1, x2, y2] = boxes_data.slice(i * 4, (i + 1) * 4);
-      x1 *= this.canvas.width;
-      x2 *= this.canvas.width;
-      y1 *= this.canvas.height;
-      y2 *= this.canvas.height;
-      const width = x2 - x1;
-      const height = y2 - y1;
-      const klass = coco_names[classes_data[i]];
-      const score = scores_data[i].toFixed(2);
-      //console.log(score);
-
-      // Draw the bounding box.
-      this.ctx.strokeStyle = "#00FFFF";
-      this.ctx.lineWidth = 4;
-      this.ctx.strokeRect(x1, y1, width, height);
-
-      // Draw the label background.
-      this.ctx.fillStyle = "#00FFFF";
-      const textWidth = this.ctx.measureText(klass + ":" + score).width;
-      const textHeight = parseInt(font, 10); // base 10
-      this.ctx.fillRect(x1, y1, textWidth + 4, textHeight + 4);
-
-    }
+    
     for (i = 0; i < valid_detections_data; ++i) {
       let [x1, y1, ,] = boxes_data.slice(i * 4, (i + 1) * 4);
       x1 *= this.canvas.width;
@@ -153,20 +130,47 @@ class Camera {
       // Draw the text last to ensure it's on top.
 
       if (score > 0.9) {
+
+        for (i = 0; i < valid_detections_data; ++i) {
+          let [x1, y1, x2, y2] = boxes_data.slice(i * 4, (i + 1) * 4);
+          x1 *= this.canvas.width;
+          x2 *= this.canvas.width;
+          y1 *= this.canvas.height;
+          y2 *= this.canvas.height;
+          const width = x2 - x1;
+          const height = y2 - y1;
+          const klass = coco_names[classes_data[i]];
+          const score = scores_data[i].toFixed(2);
+          console.log(score);
+
+          // Draw the bounding box.
+          this.ctx.strokeStyle = "#00FFFF";
+          this.ctx.lineWidth = 4;
+          this.ctx.strokeRect(x1, y1, width, height);
+
+          // Draw the label background.
+          this.ctx.fillStyle = "#00FFFF";
+          const textWidth = this.ctx.measureText(klass + ":" + score).width;
+          const textHeight = parseInt(font, 10); // base 10
+          this.ctx.fillRect(x1, y1, textWidth + 4, textHeight + 4);
+
+          /*
+          if (klass == "pepsi") {
+          cnt[1] += 1;
+          console.log(cnt[1]);
+          }
+
+          if (cnt[1] > 10) {
+            audio_pepsi.play();
+            cnt[1] = 0;
+          }
+          */
+
+        }
         this.ctx.fillStyle = "#000000";
         this.ctx.fillText(klass + ":" + score, x1, y1);
 
-        if (klass == "pepsi") {
-          audio_pepsi.play();
-        }
-
-        if (klass == "fanta") {
-          audio_fanta.play();
-        }
-
-        if (klass == "chilsung") {
-          audio_chilsung.play();
-        }
+        
       }
 
     }
