@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context=".RekogActivity">
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/white"
+        android:shadowColor="#707070"
+        android:shadowDx="4"
+        android:shadowDy="3"
+        android:shadowRadius="3"
+        android:text="BACK"
+        android:fontFamily="@font/leferipointwhiteoblique"
+        android:textColor="@color/black"
+        android:textSize="50dp" />
+
+    <FrameLayout
+        android:id="@+id/capture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F1F1F1" />
+
+        <ImageView
+            android:id="@+id/camera_icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/camera" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text_display"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_below="@+id/image_view"
+        android:maxLines="5"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        android:text="유통기한"
+        android:shadowColor="#707070"
+        android:shadowDx="4"
+        android:shadowDy="3"
+        android:shadowRadius="3"
+        android:textColor="@color/black"
+        android:fontFamily="@font/leferipointwhiteoblique"
+        android:textStyle="italic"
+        android:textSize="20dp" />
+
+</LinearLayout>
