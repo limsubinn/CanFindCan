@@ -199,7 +199,7 @@ let startInferenceTime, numInferences = 0;
 let inferenceTimeSum = 0, lastPanelUpdate = 0;
 let rafId;
 
-const yolov5n_weight = "https://raw.githubusercontent.com/limsubinn/testcan/main/best_web_model/model.json"
+const yolov5n_weight = "https://raw.githubusercontent.com/limsubinn/CanFindCan/main/best_web_model/model.json"
 
 async function createDetector() {
   return tf.loadGraphModel(yolov5n_weight);
