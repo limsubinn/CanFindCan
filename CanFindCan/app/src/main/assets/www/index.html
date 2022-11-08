@@ -1,26 +1,20 @@
 <div id="main">
     <div class="container">
         <div class="canvas-wrapper">
-            <canvas id="output">
-            </canvas>
+            <canvas id="output"></canvas>
             <video id="video" playsinline style="
-         /* transform: scaleX(-1);
+          /* transform: scaleX(-1);
           -webkit-transform: scaleX(-1);
           -moz-transform:scaleX(-1); */
           visibility: hidden;
-          width: 50px;
-          height: 50px;
+          width: auto;
+          height: auto;
           ">
             </video>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
-<head>
-    <meta name="viewport" content="initial-scale=1">
-</head>
-<body style ='margin:0;padding:0;'>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js"> </script>
 <script>
 
 const coco_names = ['coca', 'pepsi', 'sprite', 'chilsung', 'milkis', 'welchs', 'pocari', 'fanta']
@@ -55,8 +49,7 @@ class Camera {
     }
 
     const $size = { width: 640, height: 480 };
-    const $m_size = { width: screen.height , height: screen.width };
-    //document.write("width:"+screen.height*5/6+"height:"+screen.width);
+    const $m_size = { width: 800, height: 400 };
     const videoConfig = {
       'audio': false,
       'video': {
@@ -199,13 +192,11 @@ let startInferenceTime, numInferences = 0;
 let inferenceTimeSum = 0, lastPanelUpdate = 0;
 let rafId;
 
-const yolov5n_weight = "https://raw.githubusercontent.com/limsubinn/CanFindCan/main/best_web_model/model.json"
+const yolov5n_weight = "https://raw.githubusercontent.com/limsubinn/CanFindCan/main/best_web_model_0615/model.json"
 
 async function createDetector() {
   return tf.loadGraphModel(yolov5n_weight);
 }
-
-
 
 async function renderResult() {
   if (camera.video.readyState < 2) {
@@ -227,7 +218,6 @@ async function renderResult() {
   // Detector can be null if initialization failed (for example when loading
   // from a URL that does not exist).
   if (detector != null) {
-
     // Detectors can throw errors, for example when using custom URLs that
     // contain a model that doesn't provide the expected output.
     try {
